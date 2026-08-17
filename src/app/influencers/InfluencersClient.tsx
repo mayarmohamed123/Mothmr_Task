@@ -3,13 +3,14 @@
 import { useCallback, useState, useTransition } from 'react';
 import { Search, X } from 'lucide-react';
 import type { Influencer } from '@/types/influencer';
-import type { PaginationMeta, Lang } from '@/types/api';
+import type { PaginationMeta } from '@/types/api';
 import { getInfluencers } from '@/lib/api/influencers';
 import { InfluencerCard } from '@/components/influencers/InfluencerCard';
 import { InfluencerCardSkeleton } from '@/components/influencers/InfluencerCardSkeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Button } from '@/components/ui/Button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const SORT_OPTIONS = [
   { value: '', labelAr: 'الافتراضي', labelEn: 'Default' },
@@ -22,14 +23,13 @@ const SORT_OPTIONS = [
 interface InfluencersClientProps {
   initialInfluencers: Influencer[];
   initialMeta: PaginationMeta | null;
-  lang: Lang;
 }
 
 export default function InfluencersClient({
   initialInfluencers,
   initialMeta,
-  lang,
 }: InfluencersClientProps) {
+  const { lang } = useLanguage();
   const [influencers, setInfluencers] = useState(initialInfluencers);
   const [meta, setMeta] = useState(initialMeta);
   const [query, setQuery] = useState('');

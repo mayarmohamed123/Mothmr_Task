@@ -28,7 +28,6 @@ export default async function InfluencersPage() {
       <InfluencersClient
         initialInfluencers={res?.data ?? []}
         initialMeta={res?.meta ?? null}
-        lang="ar"
       />
     </Suspense>
   );

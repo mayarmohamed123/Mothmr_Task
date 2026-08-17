@@ -36,7 +36,6 @@ export default async function AdsPage() {
         initialAds={initialAds}
         initialMeta={initialMeta}
         categories={categories}
-        lang="ar"
       />
     </Suspense>
   );

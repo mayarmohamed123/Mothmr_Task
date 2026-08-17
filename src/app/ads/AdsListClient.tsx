@@ -4,7 +4,7 @@ import { useCallback, useState, useTransition } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import type { AdListItem } from '@/types/ad';
 import type { Category } from '@/types/category';
-import type { PaginationMeta, Lang } from '@/types/api';
+import type { PaginationMeta } from '@/types/api';
 import { getAds } from '@/lib/api/ads';
 import { AdCard } from '@/components/ads/AdCard';
 import { AdCardSkeleton } from '@/components/ads/AdCardSkeleton';
@@ -12,12 +12,12 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Button } from '@/components/ui/Button';
 import { translations } from '@/lib/utils/i18n';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface AdsListClientProps {
   initialAds: AdListItem[];
   initialMeta: PaginationMeta | null;
   categories: Category[];
-  lang: Lang;
 }
 
 const SORT_OPTIONS = [
@@ -31,8 +31,8 @@ export default function AdsListClient({
   initialAds,
   initialMeta,
   categories,
-  lang,
 }: AdsListClientProps) {
+  const { lang } = useLanguage();
   const tr = translations[lang];
   const [ads, setAds] = useState(initialAds);
   const [meta, setMeta] = useState(initialMeta);
