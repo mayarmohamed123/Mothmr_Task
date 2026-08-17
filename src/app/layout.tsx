@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: 'مثمر | Mothmer — اعلانك ديما مؤثر',
   description:
     'مثمر منصة إعلانية تربط العلامات التجارية بصناع المحتوى في السوق المصري والعربي، وتحوّل الإعلان من مجرد مشاهدة إلى تأثير حقيقي.',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
   openGraph: {
     title: 'مثمر | Mothmer',
     description: 'Make your ad matter — منصة المؤثرين الرائدة في مصر',
