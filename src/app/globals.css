@@ -1,26 +1,173 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens (light mode) ────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #F97316;
+  --primary-hover: #EA6C0A;
+  --primary-foreground: #ffffff;
+  --bg: #f8f7f5;
+  --bg-secondary: #f0efed;
+  --card: #ffffff;
+  --card-hover: #f5f4f2;
+  --foreground: #14171f;
+  --muted: #6b7280;
+  --muted-hover: #4b5563;
+  --border: #e5e7eb;
+  --border-hover: #d1d5db;
+  --error: #dc2626;
+  --success: #16a34a;
+  --warning: #eab308;
+  --dark-bg: #0b1020;
+  --dark-card: #151a2b;
+  --dark-border: #252c42;
+  --dark-muted: #98a1b5;
 }
 
+/* ─── Dark mode tokens ───────────────────────────────────── */
+.dark {
+  --bg: #0b1020;
+  --bg-secondary: #101527;
+  --card: #151a2b;
+  --card-hover: #1c2236;
+  --foreground: #eef1f7;
+  --muted: #98a1b5;
+  --muted-hover: #b8c1d5;
+  --border: #252c42;
+  --border-hover: #3a4562;
+}
+
+/* ─── Tailwind v4 theme registration ────────────────────── */
 @theme inline {
-  --color-background: var(--background);
+  /* 7 Breakpoints */
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+
+  /* Map CSS vars → Tailwind color tokens so bg-card, text-muted, border-border etc. work */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-background: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-hover: var(--muted-hover);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+
+  /* Font */
+  --font-sans: 'Cairo', system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Reset ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Cairo', system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ─── Focus Visible ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--border) 50%,
+    var(--bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ─── RTL helpers ────────────────────────────────────────── */
+[dir='rtl'] .flip-rtl { transform: scaleX(-1); }
+
+/* ─── Hide carousel scrollbar ───────────────────────────── */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ─── Line clamp (standard + webkit) ────────────────────── */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+}
+
+/* ─── Button utility classes (avoid var() inside Tailwind brackets) ─── */
+.btn-secondary {
+  background-color: var(--card);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  background-color: var(--card-hover);
+  border-color: var(--border-hover);
+}
+.btn-ghost {
+  background-color: transparent;
+  color: var(--foreground);
+}
+.btn-ghost:hover {
+  background-color: var(--bg-secondary);
 }
