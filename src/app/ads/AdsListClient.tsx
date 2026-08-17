@@ -196,7 +196,7 @@ export default function AdsListClient({
                 ? Array.from({ length: 12 }, (_, i) => <AdCardSkeleton key={i} />)
                 : ads.length === 0
                 ? null
-                : ads.map((ad) => <AdCard key={ad.id} ad={ad} lang={lang} />)
+                : ads.map((ad, idx) => <AdCard key={ad.id} ad={ad} lang={lang} priority={idx < 4} />)
               }
             </div>
 

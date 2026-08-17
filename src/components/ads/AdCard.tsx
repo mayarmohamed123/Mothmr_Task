@@ -11,9 +11,10 @@ interface AdCardProps {
   ad: AdListItem;
   lang: Lang;
   compact?: boolean;
+  priority?: boolean;
 }
 
-export function AdCard({ ad, lang, compact = false }: AdCardProps) {
+export function AdCard({ ad, lang, compact = false, priority = false }: AdCardProps) {
   return (
     <Link
       href={`/ads/${ad.id}`}
@@ -33,6 +34,8 @@ export function AdCard({ ad, lang, compact = false }: AdCardProps) {
           src={ad.thumbnail}
           alt={t(ad.title, lang)}
           fill
+          priority={priority}
+          loading={priority ? 'eager' : undefined}
           sizes={compact ? '200px' : '(max-width: 640px) 100vw, 33vw'}
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />

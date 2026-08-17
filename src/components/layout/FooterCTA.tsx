@@ -113,7 +113,7 @@ export function FooterCTA() {
               width={480}
               height={420}
               className="relative drop-shadow-2xl lg:translate-y-4"
-              style={{ height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
               priority
             />
           </div>

@@ -59,6 +59,7 @@ export default function LoginPage() {
                 alt="Mothmer Logo"
                 width={36}
                 height={32}
+                style={{ width: 'auto', height: 'auto' }}
                 className="object-contain"
               />
             </div>
